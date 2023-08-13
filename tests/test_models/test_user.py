@@ -25,10 +25,14 @@ class TestUser(unittest.TestCase):
         for attr in attributes:
             self.assertTrue(hasattr(u, attr))
 
+        self.assertTrue(type(u.email), str)
+        self.assertTrue(type(u.password), str)
         self.assertTrue(type(u.first_name), str)
         self.assertTrue(type(u.last_name), str)
         self.assertEqual(u.email, "")
         self.assertEqual(u.password, "")
+        self.assertEqual(u.first_name, "")
+        self.assertEqual(u.last_name, "")
         self.assertTrue(issubclass(type(u), BaseModel))
         self.assertIsInstance(u, User)
 

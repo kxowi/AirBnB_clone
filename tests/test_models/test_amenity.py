@@ -19,6 +19,12 @@ class TestAmenity(unittest.TestCase):
         for attr in ['id', 'created_at', 'updated_at', 'name']:
             self.assertTrue(hasattr(a1, attr) and hasattr(a2, attr))
 
+    def test_attrs_type(self):
+        """Check type of attrs and value"""
+        a = Amenity()
+        self.assertEqual(type(a.name), str)
+        self.assertEqual(a.name, "")
+
     def test_str(self):
         """Test cases for str method"""
         a = Amenity()

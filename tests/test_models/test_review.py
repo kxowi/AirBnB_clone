@@ -27,6 +27,16 @@ class TestReview(unittest.TestCase):
         for attr in attributes:
             self.assertTrue(hasattr(r, attr))
 
+    def test_attrs_type(self):
+        """Check type of attrs and value"""
+        r = Review()
+        self.assertEqual(type(r.place_id), str)
+        self.assertEqual(type(r.user_id), str)
+        self.assertEqual(type(r.text), str)
+        self.assertEqual(r.place_id, "")
+        self.assertEqual(r.user_id, "")
+        self.assertEqual(r.text, "")
+
     def test_str(self):
         """Test cases for str method"""
         r = Review()

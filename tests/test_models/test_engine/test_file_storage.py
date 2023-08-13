@@ -34,6 +34,9 @@ class TestFileStorage(unittest.TestCase):
                 ]
         for attr in attributes:
             self.assertTrue(hasattr(stg, attr))
+        self.assertEqual(type(stg), FileStorage)
+        self.assertEqual(
+                type(FileStorage._FileStorage__file_path), str)
 
     def test_all(self):
         """Test cases for all method"""
@@ -42,6 +45,9 @@ class TestFileStorage(unittest.TestCase):
         stg = FileStorage()
         self.assertIn(b, stg.all().values())
         self.assertEqual(type(stg.all()), dict)
+
+        with self.assertRaises(TypeError):
+            stg.all(None)
 
     def test_new(self):
         """Test cases for new method"""
@@ -94,7 +100,6 @@ class TestFileStorage(unittest.TestCase):
         key = 'BaseModel.' + b.id
         stg.reload()
         self.assertIn(key, stg.all().keys())
-
 
 if __name__ == "__main__":
     unittest.main()

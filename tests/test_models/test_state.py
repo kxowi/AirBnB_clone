@@ -19,6 +19,12 @@ class TestState(unittest.TestCase):
         for attr in ['id', 'created_at', 'updated_at', 'name']:
             self.assertTrue(hasattr(s1, attr))
 
+    def test_attrs_type(self):
+        """Check type of attrs and value"""
+        s = State()
+        self.assertEqual(type(s.name), str)
+        self.assertEqual(s.name, "")
+
     def test_str(self):
         """Test cases for str method"""
         s = State()
