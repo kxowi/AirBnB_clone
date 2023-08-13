@@ -24,6 +24,14 @@ class TestCity(unittest.TestCase):
         for attr in attributes:
             self.assertTrue(hasattr(c, attr))
 
+    def test_attrs_type(self):
+        """Check type of attrs and value"""
+        c = City()
+        self.assertEqual(type(c.state_id), str)
+        self.assertEqual(type(c.name), str)
+        self.assertEqual(c.state_id, "")
+        self.assertEqual(c.name, "")
+
     def test_str(self):
         """Test cases for str method"""
         c = City()

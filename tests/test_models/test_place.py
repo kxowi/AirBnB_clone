@@ -35,6 +35,33 @@ class TestPlace(unittest.TestCase):
         for attr in attributes:
             self.assertTrue(hasattr(p, attr))
 
+    def test_attrs_type(self):
+        """Check type of attrs and value"""
+        p = Place()
+        self.assertEqual(type(p.city_id), str)
+        self.assertEqual(type(p.user_id), str)
+        self.assertEqual(type(p.name), str)
+        self.assertEqual(type(p.description), str)
+        self.assertEqual(type(p.number_rooms), int)
+        self.assertEqual(type(p.number_bathrooms), int)
+        self.assertEqual(type(p.max_guest), int)
+        self.assertEqual(type(p.price_by_night), int)
+        self.assertEqual(type(p.latitude), float)
+        self.assertEqual(type(p.longitude), float)
+        self.assertEqual(type(p.amenity_ids), list)
+
+        self.assertEqual(p.city_id, "")
+        self.assertEqual(p.user_id, "")
+        self.assertEqual(p.name, "")
+        self.assertEqual(p.description, "")
+        self.assertEqual(p.number_rooms, 0)
+        self.assertEqual(p.number_bathrooms, 0)
+        self.assertEqual(p.max_guest, 0)
+        self.assertEqual(p.price_by_night, 0)
+        self.assertEqual(p.latitude, 0.0)
+        self.assertEqual(p.longitude, 0.0)
+        self.assertEqual(p.amenity_ids, [])
+
     def test_to_dict(self):
         """Test cases for to_dict method"""
         p = Place()
