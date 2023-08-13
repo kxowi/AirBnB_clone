@@ -116,6 +116,8 @@ class HBNBCommand(cmd.Cmd):
             else:
                 if args[2] not in ["id", "created_at", "updated_at"]:
                     my_inst = all_objects[obj]
+                    if args[3].startswith('"') and args[3].endswith('"'):
+                        args[3] = args[3][1:-1]
                     if hasattr(my_inst, args[2]):
                         type_att = type(getattr(my_inst, args[2]))
                         try:
@@ -123,6 +125,9 @@ class HBNBCommand(cmd.Cmd):
                             my_inst.save()
                         except Exception:
                             pass
+                    else:
+                        setattr(my_inst, args[2], args[3])
+                        my_inst.save()
 
     def emptyline(self):
         """ENTER with empty line should not do anything"""

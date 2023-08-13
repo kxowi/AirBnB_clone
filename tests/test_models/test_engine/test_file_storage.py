@@ -59,6 +59,14 @@ class TestFileStorage(unittest.TestCase):
         FileStorage.__file_path = ""
         self.assertFalse(os.path.exists(FileStorage.__file_path))
 
+    def test_file_not_found(self):
+        """Case if the file not found"""
+        stg = FileStorage()
+        stg.__file_path = "no exesting path"
+        with self.assertRaises(FileNotFoundError):
+            with open(stg.__file_path, "r", encoding="UTF-8") as f:
+                pass
+
 
 if __name__ == "__main__":
     unittest.main()
