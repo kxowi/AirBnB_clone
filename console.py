@@ -45,8 +45,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             instance = classes[line]()
-            instance.save()
             print(instance.id)
+            instance.save()
 
     def do_show(self, line):
         """Show an instance via its id"""
@@ -58,11 +58,15 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-            for k, v in storage.all().items():
-                if k.split(".")[1] == args[1]:
-                    print(v)
-                    return
-            print("** no instance found **")
+            all_objects = storage.all()
+            obj = f"{args[0]}.{args[1]}"
+            if obj not in all_objects:
+                print("** no instance found **")
+            else:
+                for k, v in storage.all().items():
+                    if k.split(".")[1] == args[1]:
+                        print(v)
+                        return
 
     def do_destroy(self, line):
         """Destroy an instance via its id"""
@@ -74,11 +78,16 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) < 2:
             print("** instance id missing **")
         else:
-            for k, v in storage.all().items():
-                if k.split(".")[1] == args[1]:
-                    del storage.all()[k]
-                    return
-            print("** no instance found **")
+            all_objects = storage.all()
+            obj = f"{args[0]}.{args[1]}"
+            if obj not in all_objects:
+                print("** no instance found **")
+            else:
+                for k, v in storage.all().items():
+                    if k.split(".")[1] == args[1]:
+                        del storage.all()[k]
+                        storage.save()
+                        return
 
     def do_all(self, line):
         """Print all instances as string representation"""
@@ -93,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
             for k, v in storage.all().items():
                 if k.split(".")[0] == args[0]:
                     string.append(str(v))
-        if string:
+        if len(string) > 0:
             print(string)
 
     def do_update(self, line):
@@ -121,14 +130,10 @@ class HBNBCommand(cmd.Cmd):
                         args[3] = args[3][1:-1]
                     if hasattr(my_inst, args[2]):
                         type_att = type(getattr(my_inst, args[2]))
-                        try:
-                            setattr(my_inst, args[2], type_att(args[3]))
-                            my_inst.save()
-                        except Exception:
-                            pass
+                        setattr(my_inst, args[2], type_att(args[3]))
                     else:
                         setattr(my_inst, args[2], args[3])
-                        my_inst.save()
+                    my_inst.save()
 
     def emptyline(self):
         """ENTER with empty line should not do anything"""
