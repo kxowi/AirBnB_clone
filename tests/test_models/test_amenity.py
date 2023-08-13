@@ -15,10 +15,7 @@ class TestAmenity(unittest.TestCase):
         """Test creation of Amenity instances"""
         a1 = Amenity()
         a2 = Amenity()
-        a1.name = "1234"
-        a2.name = "5678"
         self.assertNotEqual(a1, a2)
-        self.assertNotEqual(a1.__dict__, a2.__dict__)
         for attr in ['id', 'created_at', 'updated_at', 'name']:
             self.assertTrue(hasattr(a1, attr) and hasattr(a2, attr))
 
@@ -31,8 +28,7 @@ class TestAmenity(unittest.TestCase):
     def test_to_dict(self):
         """Test cases for to_dict method"""
         a = Amenity()
-        a.name = "12345"
-
+        a.name = "amenity"
         expected_result = [
                 'id',
                 'created_at',

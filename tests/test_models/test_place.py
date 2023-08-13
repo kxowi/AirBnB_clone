@@ -14,19 +14,6 @@ class TestPlace(unittest.TestCase):
     def test_creation(self):
         """Create an instance of Place class"""
         p = Place()
-        p.name = "halimon"
-        p.description = "great place"
-        p.number_rooms = 10
-        p.number_bathrooms = 3
-        p.max_guest = 100
-        p.price_by_night = 120
-
-        self.assertTrue(p.name, "halimon")
-        self.assertTrue(p.description, "great place")
-        self.assertTrue(p.number_rooms, 10)
-        self.assertTrue(p.number_bathrooms, 3)
-        self.assertTrue(p.max_guest, 100)
-        self.assertTrue(p.price_by_night, 120)
         self.assertIsInstance(p, Place)
         self.assertTrue(issubclass(Place, BaseModel))
         attributes = [

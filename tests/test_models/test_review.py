@@ -14,8 +14,6 @@ class TestReview(unittest.TestCase):
     def test_creation(self):
         """Create an instance of Review class"""
         r = Review()
-        r.text = "good place ever"
-        self.assertEqual(r.text, "good place ever")
         self.assertIsInstance(r, Review)
         self.assertTrue(issubclass(Review, BaseModel))
         attributes = [

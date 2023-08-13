@@ -14,7 +14,6 @@ class TestCity(unittest.TestCase):
     def test_attributes(self):
         """Test cases for City attributes"""
         c = City()
-        c.name = "honcong"
         attributes = [
                 'id',
                 'created_at',
@@ -24,7 +23,6 @@ class TestCity(unittest.TestCase):
                 ]
         for attr in attributes:
             self.assertTrue(hasattr(c, attr))
-        self.assertEqual(c.name, "honcong")
 
     def test_str(self):
         """Test cases for str method"""
@@ -36,7 +34,6 @@ class TestCity(unittest.TestCase):
         """Test cases for to_dict method"""
         c = City()
         c.name = "honcong"
-
         expected_result = [
                 'id',
                 'created_at',

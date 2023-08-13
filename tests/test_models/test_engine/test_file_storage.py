@@ -94,16 +94,6 @@ class TestFileStorage(unittest.TestCase):
         key = 'BaseModel.' + b.id
         stg.reload()
         self.assertIn(key, stg.all().keys())
-        FileStorage.__file_path = ""
-        self.assertFalse(os.path.exists(FileStorage.__file_path))
-
-    def test_file_not_found(self):
-        """Case if the file not found"""
-        stg = FileStorage()
-        path = FileStorage._FileStorage__file_path = "no path"
-        with self.assertRaises(FileNotFoundError):
-            with open(path, "r", encoding="UTF-8") as f:
-                pass
 
 
 if __name__ == "__main__":

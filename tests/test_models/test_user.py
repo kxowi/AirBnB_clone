@@ -13,10 +13,6 @@ class TestUser(unittest.TestCase):
     def test_attributes(self):
         """Test cases for User attributes"""
         u = User()
-        u.email = "user@gmail.com"
-        u.password = "user1234"
-        u.first_name = "ali"
-        u.last_name = "ali"
         attributes = [
                 'id',
                 'created_at',
@@ -28,10 +24,13 @@ class TestUser(unittest.TestCase):
                 ]
         for attr in attributes:
             self.assertTrue(hasattr(u, attr))
-        self.assertEqual(u.email, "user@gmail.com")
-        self.assertEqual(u.password, "user1234")
-        self.assertEqual(u.first_name, "ali")
-        self.assertEqual(u.last_name, "ali")
+
+        self.assertTrue(type(u.first_name), str)
+        self.assertTrue(type(u.last_name), str)
+        self.assertEqual(u.email, "")
+        self.assertEqual(u.password, "")
+        self.assertTrue(issubclass(type(u), BaseModel))
+        self.assertIsInstance(u, User)
 
     def test_str(self):
         """Test cases for str method"""
@@ -42,11 +41,10 @@ class TestUser(unittest.TestCase):
     def test_to_dict(self):
         """Test cases for to_dict method"""
         u = User()
-        u.email = "user@gmail.com"
-        u.password = "user1234"
-        u.first_name = "ali"
-        u.last_name = "ali"
-
+        u.email = "e@email"
+        u.password = "root"
+        u.first_name = "nicol"
+        u.last_name = "nermax"
         expected_result = [
                 'id',
                 'created_at',

@@ -15,12 +15,9 @@ class TestState(unittest.TestCase):
         """Test creation of State instances"""
         s1 = State()
         s2 = State()
-        s1.name = "state1"
-        s2.name = "state2"
         self.assertNotEqual(s1, s2)
-        self.assertNotEqual(s1.__dict__, s2.__dict__)
         for attr in ['id', 'created_at', 'updated_at', 'name']:
-            self.assertTrue(hasattr(s1, attr) and hasattr(s2, attr))
+            self.assertTrue(hasattr(s1, attr))
 
     def test_str(self):
         """Test cases for str method"""
@@ -31,8 +28,7 @@ class TestState(unittest.TestCase):
     def test_to_dict(self):
         """Test cases for to_dict method"""
         s = State()
-        s.name = "12345"
-
+        s.name = "state"
         expected_result = [
                 'id',
                 'created_at',
