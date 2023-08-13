@@ -52,10 +52,21 @@ class TestFileStorage(unittest.TestCase):
     def test_new(self):
         """Test cases for new method"""
         b = BaseModel()
-        b.save()
+        u = User()
+        s = State()
+        c = City()
+        p = Place()
+        a = Amenity()
+        r = Review()
         stg = FileStorage()
-        stg.new(b)
+
         self.assertIn(b, stg.all().values())
+        self.assertIn(u, stg.all().values())
+        self.assertIn(s, stg.all().values())
+        self.assertIn(c, stg.all().values())
+        self.assertIn(p, stg.all().values())
+        self.assertIn(a, stg.all().values())
+        self.assertIn(r, stg.all().values())
         with self.assertRaises(TypeError):
             stg.new()
 
@@ -95,11 +106,30 @@ class TestFileStorage(unittest.TestCase):
     def test_reload(self):
         """Test cases for reload method"""
         b = BaseModel()
-        b.save()
+        u = User()
+        s = State()
+        c = City()
+        p = Place()
+        a = Amenity()
+        r = Review()
+
         stg = FileStorage()
-        key = 'BaseModel.' + b.id
+        path = FileStorage._FileStorage__file_path
+        stg.save()
         stg.reload()
-        self.assertIn(key, stg.all().keys())
+        objs = stg.all()
+
+        with open(path, "r", encoding="UTF-8") as f:
+            data = json.load(f)
+
+            self.assertIn('BaseModel.' + b.id, objs)
+            self.assertIn('User.' + u.id, objs)
+            self.assertIn('State.' + s.id, objs)
+            self.assertIn('City.' + c.id, objs)
+            self.assertIn('Place.' + p.id, objs)
+            self.assertIn('Amenity.' + a.id, objs)
+            self.assertIn('Review.' + r.id, objs)
+
 
 if __name__ == "__main__":
     unittest.main()
