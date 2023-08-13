@@ -59,3 +59,5 @@ class FileStorage():
                 storage_objs = json.load(f)
                 for k, v in storage_objs.items():
                     self.__objects[k] = classes[v['__class__']](**v)
+        else:
+            FileStorage._FileStorage__objects = {}

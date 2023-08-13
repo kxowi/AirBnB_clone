@@ -76,11 +76,9 @@ class TestFileStorage(unittest.TestCase):
         b.save()
         stg = FileStorage()
         stg.save()
-        path = FileStorage._FileStorage__file_path
-        with open(path, "r", encoding="UTF-8") as f:
-            data = json.load(f)
-            key = 'BaseModel.' + b.id
-            self.assertIn(key, data.keys())
+        objs = stg.all()
+        key = 'BaseModel.' + b.id
+        self.assertIn(key, objs.keys())
         with self.assertRaises(TypeError):
             stg.save(None)
         u = User()
@@ -92,6 +90,7 @@ class TestFileStorage(unittest.TestCase):
         stg.save()
 
         objs = stg.all()
+        path = FileStorage._FileStorage__file_path
         with open(path, "r", encoding="UTF-8") as f:
             data = json.load(f)
 
@@ -129,6 +128,14 @@ class TestFileStorage(unittest.TestCase):
             self.assertIn('Place.' + p.id, objs)
             self.assertIn('Amenity.' + a.id, objs)
             self.assertIn('Review.' + r.id, objs)
+
+    def test_file_not_found(self):
+        """Check for exsisting file"""
+        stg = FileStorage()
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+        stg.reload()
+        self.assertEqual(len(FileStorage._FileStorage__objects), 0)
 
 
 if __name__ == "__main__":
