@@ -50,11 +50,11 @@ class TestPlace(unittest.TestCase):
     def test_save(self):
         """Test cases for save method"""
         p = Place()
-        p.created_at = p.update_at = dt.datetime.now()
+        p.created_at = p.updated_at = dt.datetime.now()
         self.assertEqual(p.created_at, p.updated_at)
         p.save()
         self.assertNotEqual(p.created_at, p.updated_at)
-        key = 'Place.' + u.id
+        key = 'Place.' + p.id
         all_objects = models.storage.all()
         self.assertIn(key, all_objects.keys())
 
