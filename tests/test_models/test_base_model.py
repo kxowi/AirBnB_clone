@@ -24,6 +24,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(b1.id, b2.id)
         self.assertNotEqual(b1.created_at, b2.created_at)
         self.assertNotEqual(b1.updated_at, b2.updated_at)
+        attributes = [
+                'id',
+                'created_at',
+                'updated_at'
+                ]
+        for attr in attributes:
+            self.assertTrue(hasattr(b1, attr))
 
     def test_str(self):
         """Test cases for str method"""

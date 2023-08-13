@@ -18,6 +18,16 @@ class TestReview(unittest.TestCase):
         self.assertEqual(r.text, "good place ever")
         self.assertIsInstance(r, Review)
         self.assertTrue(issubclass(Review, BaseModel))
+        attributes = [
+                'id',
+                'created_at',
+                'updated_at',
+                'place_id',
+                'user_id',
+                'text'
+                ]
+        for attr in attributes:
+            self.assertTrue(hasattr(r, attr))
 
     def test_str(self):
         """Test cases for str method"""

@@ -29,6 +29,24 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(p.price_by_night, 120)
         self.assertIsInstance(p, Place)
         self.assertTrue(issubclass(Place, BaseModel))
+        attributes = [
+                'id',
+                'created_at',
+                'updated_at',
+                'city_id',
+                'user_id',
+                'name',
+                'description',
+                'number_rooms',
+                'number_bathrooms',
+                'max_guest',
+                'price_by_night',
+                'latitude',
+                'longitude',
+                'amenity_ids',
+                ]
+        for attr in attributes:
+            self.assertTrue(hasattr(p, attr))
 
     def test_to_dict(self):
         """Test cases for to_dict method"""

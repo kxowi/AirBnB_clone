@@ -3,6 +3,12 @@
 
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import unittest
 import json
 import os
@@ -18,6 +24,16 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(len(FileStorage.new.__doc__) >= 1)
         self.assertTrue(len(FileStorage.save.__doc__) >= 1)
         self.assertTrue(len(FileStorage.reload.__doc__) >= 1)
+
+    def test_attrs(self):
+        """Check for attributes"""
+        stg = FileStorage()
+        attributes = [
+                '_FileStorage__file_path',
+                '_FileStorage__objects'
+                ]
+        for attr in attributes:
+            self.assertTrue(hasattr(stg, attr))
 
     def test_all(self):
         """Test cases for all method"""
@@ -43,10 +59,32 @@ class TestFileStorage(unittest.TestCase):
         b.save()
         stg = FileStorage()
         stg.save()
-        with open("file.json", "r", encoding="UTF-8") as f:
+        path = FileStorage._FileStorage__file_path
+        with open(path, "r", encoding="UTF-8") as f:
             data = json.load(f)
             key = 'BaseModel.' + b.id
             self.assertIn(key, data.keys())
+        with self.assertRaises(TypeError):
+            stg.save(None)
+        u = User()
+        s = State()
+        c = City()
+        p = Place()
+        a = Amenity()
+        r = Review()
+        stg.save()
+
+        objs = stg.all()
+        with open(path, "r", encoding="UTF-8") as f:
+            data = json.load(f)
+
+            self.assertIn('BaseModel.' + b.id, objs)
+            self.assertIn('User.' + u.id, objs)
+            self.assertIn('State.' + s.id, objs)
+            self.assertIn('City.' + c.id, objs)
+            self.assertIn('Place.' + p.id, objs)
+            self.assertIn('Amenity.' + a.id, objs)
+            self.assertIn('Review.' + r.id, objs)
 
     def test_reload(self):
         """Test cases for reload method"""
@@ -62,9 +100,9 @@ class TestFileStorage(unittest.TestCase):
     def test_file_not_found(self):
         """Case if the file not found"""
         stg = FileStorage()
-        stg.__file_path = "no exesting path"
+        path = FileStorage._FileStorage__file_path = "no path"
         with self.assertRaises(FileNotFoundError):
-            with open(stg.__file_path, "r", encoding="UTF-8") as f:
+            with open(path, "r", encoding="UTF-8") as f:
                 pass
 
 

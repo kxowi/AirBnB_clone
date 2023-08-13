@@ -19,6 +19,7 @@ class TestCity(unittest.TestCase):
                 'id',
                 'created_at',
                 'updated_at',
+                'state_id',
                 'name',
                 ]
         for attr in attributes:
