@@ -92,7 +92,8 @@ class HBNBCommand(cmd.Cmd):
             for k, v in storage.all().items():
                 if k.split(".")[0] == args[0]:
                     string.append(str(v))
-        print(string)
+        if string:
+            print(string)
 
     def do_update(self, line):
         """Update an instance's attribute"""
@@ -108,15 +109,20 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) < 4:
             print("** value missing **")
         else:
-            if args[2] not in ["id", "created_at", "updated_at"]:
-                for k, v in storage.all().items():
-                    if k.split(".")[1] == args[1]:
-                        if hasattr(v, args[2]):
-                            type_att = type(v.args[2])
-                            setattr(v, args[2], type_att(args[3]))
-                            v.save()
-                            return
-            print("** no instance found **")
+            all_objects = storage.all()
+            obj = f"{args[0]}.{args[1]}"
+            if obj not in all_objects:
+                print("** no instance found **")
+            else:
+                if args[2] not in ["id", "created_at", "updated_at"]:
+                    my_inst = all_objects[obj]
+                    if hasattr(my_inst, args[2]):
+                        type_att = type(getattr(my_inst, args[2]))
+                        try:
+                            setattr(my_inst, args[2], type_att(args[3]))
+                            my_inst.save()
+                        except Exception:
+                            pass
 
     def emptyline(self):
         """ENTER with empty line should not do anything"""
