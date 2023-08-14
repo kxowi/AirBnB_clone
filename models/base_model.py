@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class BaseModel():
-    """Defines commun attributes and methodes for all
+    """Defines commun attributes & methodes for all
     other subclasses"""
 
     def __init__(self, *args, **kwargs):
