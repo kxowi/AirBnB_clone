@@ -24,7 +24,7 @@ classes = {
 
 
 class HBNBCommand(cmd.Cmd):
-    """Airbnb command line interpreter"""
+    """Airbnb command-line interpreter"""
 
     prompt = "(hbnb) "
 
