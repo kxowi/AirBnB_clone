@@ -26,7 +26,7 @@ classes = {
 
 
 class FileStorage():
-    """Serialize and deserialize of an instance"""
+    """Serialize & deserialize of an instance"""
 
     __file_path = "file.json"
     __objects = {}
